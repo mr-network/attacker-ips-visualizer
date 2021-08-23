@@ -49,8 +49,9 @@ function drawGraph(data) {
                 labels: countryPieLabels,
                 datasets: [{
                     data: countryPieDatas,
+                    backgroundColor: getRandomColors(perCountryCount + 1),
                     hoverOffset: 4
-                }]
+                }],
             },
             options: {
                 plugins: {
@@ -75,6 +76,7 @@ function drawGraph(data) {
                 labels: asPieLabel,
                 datasets: [{
                     data: asPieDatas,
+                    backgroundColor: getRandomColors(perASCount + 1),
                     hoverOffset: 4
                 }]
             },
@@ -106,4 +108,21 @@ function findGetParameter(parameterName) {
             if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
         });
     return result;
+}
+
+function getRandomColor() {
+  var letters = '456789AB';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * letters.length)];
+  }
+  return color;
+}
+
+function getRandomColors(count) {
+    var colors = [];
+    for (var i = 0; i < count; i++) {
+        colors[i] = getRandomColor();
+    }
+    return colors;
 }
