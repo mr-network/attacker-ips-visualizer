@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
+        integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+    <title>Attacker IPs - Mr.Network</title>
+    <style>
+        .chart {
+            max-height: 350px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-bar">
+        <div class="top-bar-left">
+            <ul class="dropdown menu" data-dropdown-menu>
+                <li class="menu-text">Attacker IPs</li>
+            </ul>
+        </div>
+        <div class="top-bar-right">
+            <form>
+                <ul class="menu">
+                    <li><input id="date" type="date" name="date" min="2021-08-16"></li>
+                    <li>
+                        <button class="button">View</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <h1 class="text-center">Attacker IPs</h1>
+        <h4 class="subheader text-center">Attacker IP addresses database.</h4>
+        <hr />
+    </div>
+
+    <div>
+        <h2 class="text-center" id="status"><span id="ipcount"></span> <small>IPs</small></h2>
+        <div class="grid-x">
+            <div class="cell medium-6">
+                <canvas id="countryPieChart" class="chart"></canvas>
+            </div>
+            <div class="cell medium-6">
+                <canvas id="asPieChart" class="chart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <br />
+        This site uses GeoLite2 data created by MaxMind, available from
+        <a href="http://www.maxmind.com">http://www.maxmind.com</a>.
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js"
+        integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.min.js"
+        integrity="sha256-bC3LCZCwKeehY6T4fFi9VfOU0gztUa+S4cnkIhVPZ5E=" crossorigin="anonymous"></script>
+    <script src="isoCountries.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
