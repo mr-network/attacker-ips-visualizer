@@ -1,3 +1,5 @@
+document.getElementById('date').max = new Date().toISOString().split("T")[0];
+
 const date = findGetParameter('date') ?? undefined;
 if (date !== undefined) {
     document.getElementById('date').value = date;
@@ -8,14 +10,16 @@ else {
         type: "get",
         url: `https://cdn.jsdelivr.net/gh/mr-network/attacker-ips-report/latest`,
     }).then(function (data) {
-        getData(data.trim('\n'));
+        const latestdate = data.trim('\n');
+        document.getElementById('date').max = latestdate;
+        getData(latestdate);
     }, function () {
         document.getElementById('status').innerText = "Failed";
     });
 }
 
-const perCountryCount = 10;
-const perASCount = 10;
+const perCountryCount = findGetParameter('countrycount') ?? 10;
+const perASCount = findGetParameter('ascount') ?? 10;
 
 function getData(targetdate) {
     document.getElementById('date').value = targetdate;
@@ -26,7 +30,7 @@ function getData(targetdate) {
     }).then(function (data) {
         drawGraph(data);
     }, function () {
-        document.getElementById('status').innerText = "Failed";
+        document.getElementById('status').innerText = "No Data";
     });
 }
 
