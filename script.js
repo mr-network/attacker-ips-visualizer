@@ -1,24 +1,39 @@
-const date = findGetParameter('date') ?? '2021-08-16';
-document.getElementById('date').value = date;
+const date = findGetParameter('date') ?? undefined;
+if (date !== undefined) {
+    document.getElementById('date').value = date;
+    getData(date);
+}
+else {
+    $.ajax({
+        type: "get",
+        url: `https://cdn.jsdelivr.net/gh/mr-network/attacker-ips-report/latest`,
+    }).then(function (data) {
+        getData(data.trim('\n'));
+    }, function () {
+        document.getElementById('status').innerText = "Failed";
+    });
+}
 
 const perCountryCount = 10;
 const perASCount = 10;
 
-$.ajax({
-    type: "get",
-    url: `https://cdn.jsdelivr.net/gh/mr-network/attacker-ips-report/${date}.json`,
-    dataType: "json",
-}).then(function (data) {
-    drawGraph(data);
-}, function () {
-    document.getElementById('status').innerText = "Failed";
+function getData(targetdate) {
+    document.getElementById('date').value = targetdate;
+    $.ajax({
+        type: "get",
+        url: `https://cdn.jsdelivr.net/gh/mr-network/attacker-ips-report/${targetdate}.json`,
+        dataType: "json",
+    }).then(function (data) {
+        drawGraph(data);
+    }, function () {
+        document.getElementById('status').innerText = "Failed";
+    });
 }
-);
 
 function drawGraph(data) {
     document.getElementById('ipcount').innerText = data.TotalIPs;
 
-    const countryPieLabels = Object.keys(data.PerCountry).slice(0, perCountryCount).concat('Other');
+    const countryPieLabels = Object.keys(data.PerCountry).slice(0, perCountryCount).concat('Other')
     const countryPieDatasTop10 = Object.values(data.PerCountry).slice(0, perCountryCount);
     const countryPieDatas = countryPieDatasTop10.concat(data.TotalIPs - sumarray(countryPieDatasTop10));
 
